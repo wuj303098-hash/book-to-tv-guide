@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const siteUrl = process.env.SITE_URL || "https://book-to-tv-guide.vercel.app";
+const siteUrl = process.env.SITE_URL || "https://everyyearafter.online";
 const date = "2026-06-12";
 
 const guideLinks = [
@@ -1160,6 +1160,19 @@ writeFileSync(join(root, "vercel.json"), `${JSON.stringify({
   outputDirectory: ".",
   cleanUrls: true,
   trailingSlash: true,
+  redirects: [
+    {
+      source: "/(.*)",
+      has: [
+        {
+          type: "host",
+          value: "www.everyyearafter.online"
+        }
+      ],
+      destination: "https://everyyearafter.online/$1",
+      permanent: true
+    }
+  ],
   headers: [
     {
       source: "/(.*)",

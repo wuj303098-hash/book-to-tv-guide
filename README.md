@@ -25,4 +25,4 @@ npm run build
 
 The build command regenerates the static pages and verifies SEO structure, sitemap coverage, canonical tags, structured data, and content depth.
 
-Set `SITE_URL=https://your-domain.com` before running the build when a custom domain is ready.
+The production domain is `https://everyyearafter.online`. Set `SITE_URL=https://preview-domain.example` only when generating a temporary preview build.
