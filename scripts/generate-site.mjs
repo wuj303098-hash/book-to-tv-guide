@@ -741,12 +741,13 @@ function relatedHtml(currentSlug) {
 function pageHtml(page) {
   const schemas = [articleSchema(page), breadcrumbSchema(page), ...(page.faqs?.length ? [faqSchema(page)] : [])];
   const isHome = page.slug === "";
+  const documentTitle = isHome ? "Book to TV Guide | Romance Shows and Book Adaptations" : `${page.title} | Book to TV Guide`;
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(page.title)} | Book to TV Guide</title>
+  <title>${esc(documentTitle)}</title>
   <meta name="description" content="${esc(page.description)}">
   <link rel="canonical" href="${urlFor(page.slug)}">
   <meta property="og:title" content="${esc(page.heading)}">
