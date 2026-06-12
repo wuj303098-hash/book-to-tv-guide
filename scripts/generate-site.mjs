@@ -1155,6 +1155,8 @@ ${pages.map((page) => `  <url>
 `);
 
 writeFileSync(join(root, "vercel.json"), `${JSON.stringify({
+  buildCommand: "npm run build",
+  outputDirectory: ".",
   cleanUrls: true,
   trailingSlash: true,
   headers: [

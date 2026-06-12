@@ -3,3 +3,5 @@ node_modules/
 site-*.png
 npm-debug.log*
 .DS_Store
+
+.vercel
