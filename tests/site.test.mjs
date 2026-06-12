@@ -6,9 +6,11 @@ const root = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "
 const siteUrl = "https://everyyearafter.online";
 const ahrefsScript = '<script src="https://analytics.ahrefs.com/analytics.js" data-key="/MmnFsf5O0ZnTGuq/pwzFA" async></script>';
 const googleTagId = "G-5VKKL3PL42";
+const homeExpectedTitle = "Every Year After Guide | Season 2, Ending, Cast & Episodes";
+const homeExpectedDescription = "Every Year After guide covering season 2 renewal status, the ending explained, cast, episodes, Charlie, Percy and Sam, and book-to-show changes.";
 
 const pages = [
-  { slug: "", title: "Book to TV Guide", minWords: 180 },
+  { slug: "", title: "Every Year After Guide", minWords: 180 },
   { slug: "every-year-after", title: "Every Year After Guide", minWords: 550 },
   { slug: "every-year-after-season-2", title: "Every Year After Season 2", minWords: 650 },
   { slug: "every-year-after-ending-explained", title: "Every Year After Ending Explained", minWords: 700 },
@@ -39,6 +41,15 @@ function wordCount(html) {
   return textOf(html).split(/\s+/).filter(Boolean).length;
 }
 
+function htmlEscape(value) {
+  return value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+}
+
+function structuredData(html) {
+  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)]
+    .map((match) => JSON.parse(match[1]));
+}
+
 for (const page of pages) {
   const path = fileFor(page.slug);
   assert.equal(existsSync(path), true, `${page.slug || "home"} page exists`);
@@ -57,6 +68,21 @@ for (const page of pages) {
   assert.doesNotMatch(html, /TBD|TODO|lorem ipsum|coming soon/i, `${page.slug || "home"} has no placeholder copy`);
   assert.doesNotMatch(textOf(html), /[\u2013\u2014]/, `${page.slug || "home"} avoids en and em dashes`);
 }
+
+const homeHtml = readFileSync(fileFor(""), "utf8");
+const homeSchemas = structuredData(homeHtml);
+const homeWebsiteSchema = homeSchemas.find((schema) => schema["@type"] === "WebSite");
+
+assert.ok(homeHtml.includes(`<title>${htmlEscape(homeExpectedTitle)}</title>`), "home title targets Every Year After");
+assert.ok(homeHtml.includes(`<meta name="description" content="${homeExpectedDescription}">`), "home meta description targets Every Year After");
+assert.ok(homeHtml.includes('<meta property="og:title" content="Every Year After Guide">'), "home og:title targets Every Year After");
+assert.ok(homeHtml.includes(`<meta property="og:description" content="${homeExpectedDescription}">`), "home og:description targets Every Year After");
+assert.match(homeHtml, /<h1>Every Year After Guide<\/h1>/, "home H1 targets Every Year After");
+assert.match(homeHtml, /<a class="brand" href="\/" aria-label="Every Year After Guide home">[\s\S]*?<span>Every Year After Guide<\/span>/, "header brand targets Every Year After");
+assert.match(homeHtml, /<header[\s\S]*?Ending Explained[\s\S]*?href="\/every-year-after-episodes\/">Episodes[\s\S]*?<\/header>/, "header links to Every Year After ending and episodes");
+assert.equal(homeWebsiteSchema?.name, "Every Year After Guide", "home WebSite schema name targets Every Year After");
+assert.equal(homeWebsiteSchema?.headline, "Every Year After Guide", "home WebSite schema headline targets Every Year After");
+assert.equal(homeWebsiteSchema?.description, homeExpectedDescription, "home WebSite schema description targets Every Year After");
 
 const topicHtml = readFileSync(fileFor("every-year-after"), "utf8");
 for (const page of pages.filter((p) => p.slug.startsWith("every-year-after") || p.slug.startsWith("does-") || p.slug.startsWith("what-"))) {

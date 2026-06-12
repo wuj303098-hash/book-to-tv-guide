@@ -37,39 +37,40 @@ const commonSources = [
 const pages = [
   {
     slug: "",
-    title: "Book to TV Guide",
-    description: "Book to TV Guide tracks romance shows, book adaptations, ending explainers, cast guides, episode recaps, and season renewal updates for fast-moving TV fans.",
-    heading: "Book to TV Guide",
-    eyebrow: "Romance shows and book adaptations",
-    deck: "Fast, spoiler-aware guides for the shows readers are searching for right now.",
+    title: "Every Year After Guide",
+    documentTitle: "Every Year After Guide | Season 2, Ending, Cast & Episodes",
+    description: "Every Year After guide covering season 2 renewal status, the ending explained, cast, episodes, Charlie, Percy and Sam, and book-to-show changes.",
+    heading: "Every Year After Guide",
+    eyebrow: "Prime Video romance guide",
+    deck: "Season 2 status, ending explained, cast, episodes, Charlie, Percy and Sam, and book-to-show changes in one crawlable guide.",
     type: "WebSite",
     hero: true,
     sections: [
       {
-        title: "Start With Every Year After",
+        title: "Quick Answer For Every Year After",
         body: [
-          "Every Year After is the first active guide on this site because search demand moved quickly after the Prime Video release. Viewers are not only searching the show title. They are asking whether season 2 will happen, what Charlie's finale collapse means, what Percy did, who plays each character, and how the series compares with Carley Fortune's book Every Summer After.",
-          "The site is built around those real questions. Each guide opens with a direct answer, then adds context, spoiler boundaries, character notes, and links to the next useful page. That structure helps readers move from a quick answer into deeper coverage without feeling trapped in a thin recap."
+          "Every Year After is the Prime Video romance drama viewers are searching after finishing season 1. This homepage collects the main questions in one place: whether season 2 is confirmed, what the ending means, what happened to Charlie, what Percy did, who plays each character, how many episodes there are, and how the series compares with Carley Fortune's book Every Summer After.",
+          "Start here if you want the fast route through the Every Year After search cluster. The linked guides give direct answers first, then add spoiler context, cast notes, book differences, and source checks so readers can move from a quick answer into the deeper page that matches their question."
         ],
         links: guideLinks
       },
       {
-        title: "How We Cover Adaptations",
+        title: "What To Read First",
         body: [
-          "Book-to-screen fans usually search in clusters. A viewer who asks about the ending often also asks about the book, the cast, the next season, and the meaning of a character decision. Book to TV Guide is organized for that search behavior. A show hub collects the major pages, while each article targets one clear question and links back to the hub.",
-          "The goal is not to replace official streaming pages or fan communities. The goal is to explain plot points, renewal status, episode order, and book differences in plain English with current sources and clear update dates."
+          "If your search is about the future of the show, start with the Every Year After season 2 guide. If you just finished the finale, read the ending explained page and the Charlie explainer. If your question is about the old secret between Percy, Sam, and Charlie, the Percy guide is the fastest next step.",
+          "The cast, episode, and book-vs-show pages are built for readers comparing the Prime Video adaptation with Every Summer After and One Golden Summer. Each page links back into this hub so Google and readers can follow the full Every Year After topic cluster."
         ]
       },
       {
-        title: "Current Editorial Focus",
+        title: "Why This Page Targets Every Year After",
         body: [
-          "The launch focus is Every Year After, Every Summer After, One Golden Summer, and nearby romance adaptation searches. As new shows break out, this site can add compact guide hubs for other series such as Off Campus, The Summer I Turned Pretty, Sweet Magnolias, and future BookTok adaptations.",
-          "Every page is static, crawlable, and written as complete text in the HTML source. That keeps the site friendly to readers, search engines, and lightweight hosting."
+          "The domain, homepage title, heading, navigation, and internal links now all point clearly at Every Year After. That makes the homepage a broad entry point for the main keyword while the deeper articles answer specific long-tail searches like season 2, ending explained, cast, episodes, and book changes.",
+          "Every page is static, crawlable, and written as complete text in the HTML source. Book to TV Guide remains the independent publisher name, while this homepage is focused on helping Google understand the site's primary Every Year After topic."
         ]
       }
     ],
     faqs: [
-      ["What is Book to TV Guide?", "Book to TV Guide is an independent guide site for TV shows adapted from books, with a focus on romance, young adult drama, endings, casts, and renewal updates."],
+      ["What is Every Year After Guide?", "Every Year After Guide is the homepage hub for season 2 status, ending explainers, cast details, episode information, and book-to-show coverage for the Prime Video series."],
       ["Is this site affiliated with Prime Video or any publisher?", "No. Book to TV Guide is an independent editorial site and links to official sources when useful."]
     ]
   },
@@ -695,15 +696,16 @@ function faqSchema(page) {
 function navHtml() {
   return `
     <header class="site-header">
-      <a class="brand" href="/" aria-label="Book to TV Guide home">
-        <span class="brand-mark">BT</span>
-        <span>Book to TV Guide</span>
+      <a class="brand" href="/" aria-label="Every Year After Guide home">
+        <span class="brand-mark">EY</span>
+        <span>Every Year After Guide</span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="/every-year-after/">Every Year After</a>
         <a href="/every-year-after-season-2/">Season 2</a>
-        <a href="/every-year-after-ending-explained/">Ending</a>
+        <a href="/every-year-after-ending-explained/">Ending Explained</a>
         <a href="/every-year-after-cast/">Cast</a>
+        <a href="/every-year-after-episodes/">Episodes</a>
       </nav>
     </header>`;
 }
@@ -751,7 +753,7 @@ function relatedHtml(currentSlug) {
 function pageHtml(page) {
   const schemas = [articleSchema(page), breadcrumbSchema(page), ...(page.faqs?.length ? [faqSchema(page)] : [])];
   const isHome = page.slug === "";
-  const documentTitle = isHome ? "Book to TV Guide | Romance Shows and Book Adaptations" : `${page.title} | Book to TV Guide`;
+  const documentTitle = page.documentTitle || `${page.title} | Book to TV Guide`;
   return `<!doctype html>
 <html lang="en">
 <head>
