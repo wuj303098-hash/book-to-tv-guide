@@ -1,0 +1,11 @@
+{
+  "name": "book-to-tv-guide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-site.mjs",
+    "test": "node tests/site.test.mjs",
+    "build": "node scripts/generate-site.mjs && node tests/site.test.mjs"
+  }
+}
