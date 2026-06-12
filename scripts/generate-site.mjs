@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const siteUrl = process.env.SITE_URL || "https://everyyearafter.online";
+const ahrefsScript = '<script src="https://analytics.ahrefs.com/analytics.js" data-key="/MmnFsf5O0ZnTGuq/pwzFA" async></script>';
 const date = "2026-06-12";
 
 const guideLinks = [
@@ -756,6 +757,7 @@ function pageHtml(page) {
   <meta property="og:url" content="${urlFor(page.slug)}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/styles.css">
+  ${ahrefsScript}
   ${schemas.map((schema) => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`).join("\n  ")}
 </head>
 <body>

@@ -4,6 +4,7 @@ import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const siteUrl = "https://everyyearafter.online";
+const ahrefsScript = '<script src="https://analytics.ahrefs.com/analytics.js" data-key="/MmnFsf5O0ZnTGuq/pwzFA" async></script>';
 
 const pages = [
   { slug: "", title: "Book to TV Guide", minWords: 180 },
@@ -47,6 +48,7 @@ for (const page of pages) {
   assert.match(html, new RegExp(`<title>[^<]*${page.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i"), `${page.slug || "home"} title targets query`);
   assert.match(html, /<meta name="description" content=".{90,220}">/i, `${page.slug || "home"} has useful meta description`);
   assert.ok(html.includes(`<link rel="canonical" href="${canonical}">`), `${page.slug || "home"} canonical is correct`);
+  assert.ok(html.includes(ahrefsScript), `${page.slug || "home"} includes Ahrefs analytics`);
   assert.match(html, /application\/ld\+json/i, `${page.slug || "home"} has structured data`);
   assert.ok(wordCount(html) >= page.minWords, `${page.slug || "home"} has enough visible text`);
   assert.doesNotMatch(html, /TBD|TODO|lorem ipsum|coming soon/i, `${page.slug || "home"} has no placeholder copy`);
