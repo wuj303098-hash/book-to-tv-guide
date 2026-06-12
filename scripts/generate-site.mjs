@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const siteUrl = process.env.SITE_URL || "https://booktotvguide.com";
+const siteUrl = process.env.SITE_URL || "https://book-to-tv-guide.vercel.app";
 const date = "2026-06-12";
 
 const guideLinks = [

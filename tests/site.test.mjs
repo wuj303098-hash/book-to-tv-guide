@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
-const siteUrl = "https://booktotvguide.com";
+const siteUrl = "https://book-to-tv-guide.vercel.app";
 
 const pages = [
   { slug: "", title: "Book to TV Guide", minWords: 180 },
